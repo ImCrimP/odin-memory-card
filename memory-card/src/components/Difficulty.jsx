@@ -13,7 +13,7 @@ export default function Difficulty({ onDifficultyChange }) {
   }
 
   return (
-    <div>
+    <div id="btns">
       <button id="easy" value={5} onClick={toggleMode}>
         Easy
       </button>

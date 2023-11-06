@@ -4,3 +4,23 @@
   padding: 2rem;
   text-align: center;
 }
+
+img {
+  width: 200px;
+}
+img:hover {
+  transform: scale(1.05);
+}
+
+#btns {
+  margin-bottom: 25px;
+}
+
+#imageContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
