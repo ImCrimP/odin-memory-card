@@ -4,6 +4,8 @@ import { set } from "lodash";
 import Cards from "./components/Cards";
 import Difficulty from "./components/Difficulty";
 import champs from "../champions";
+import HighScore from "./components/HighScore";
+import Score from "./components/Score";
 
 function App() {
   const champions = champs();
@@ -48,10 +50,28 @@ function App() {
     console.log(cardsForGame);
   }
 
-  function handleCardSelect() {}
+  function handleCardSelect() {
+    let newCards = shuffle(cardsForGame);
+    console.log(newCards);
+    setCardsForGame([...newCards]);
+  }
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
 
   return (
     <>
+      <div className="scores">
+        <Score />
+        <HighScore />
+      </div>
       <div>
         <Difficulty onDifficultyChange={handleCardsForGame} />
       </div>

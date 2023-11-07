@@ -8,9 +8,11 @@
 img {
   width: 200px;
 }
+/*
 img:hover {
   transform: scale(1.05);
 }
+*/
 
 #btns {
   margin-bottom: 25px;
@@ -23,4 +25,17 @@ img:hover {
   gap: 15px;
   align-items: center;
   justify-content: center;
+}
+
+.cardWithName {
+  border: 1px solid white;
+}
+.cardWithName:hover {
+  transform: scale(1.06);
+}
+
+.scores {
+  display: flex;
+  justify-content: flex-end;
+  gap: 25px;
 }

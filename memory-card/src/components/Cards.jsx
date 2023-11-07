@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import "../App.css";
 
-export default function Cards({ cards, cardLink, champName }) {
+export default function Cards({ cards, cardLink, champName, onCardSelect }) {
   console.log("CARDS", cards);
   return (
     cards.length > 0 && (
       <div id="imageContainer">
         {cards.map((card, index) => (
-          <div key={index}>
+          <div className="cardWithName" key={index} onClick={onCardSelect}>
             <img src={`${cardLink(card.value - 1)}`} alt="" />
             <p>{champName(card.value - 1)}</p>
           </div>
