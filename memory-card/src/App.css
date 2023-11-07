@@ -63,7 +63,13 @@ p {
   border-radius: 25px;
   border: 1px solid white;
   overflow: hidden;
-  background-color: steelblue;
+  background-image: linear-gradient(
+    rgb(3, 151, 171),
+    rgb(10, 50, 60),
+    rgb(200, 155, 60),
+    rgb(10, 50, 60),
+    rgb(10, 50, 60) /*rgb(3, 151, 171)*/
+  );
 
   transform-style: preserve-3d;
   transition: 0.5s;
