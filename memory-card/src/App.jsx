@@ -10,6 +10,8 @@ import Score from "./components/Score";
 function App() {
   const champions = champs();
 
+  const [shuffleInProgress, setShuffleInProgress] = useState(false);
+
   function getChampName(championValue) {
     //console.log("alt", champions[championValue].displayName);
     return champions[championValue].displayName;
@@ -26,22 +28,17 @@ function App() {
     let addedCards = [];
     for (let i = 0; i < mode; ) {
       let newCard = Math.floor(Math.random() * champions.length);
-      console.log("random index", newCard);
+      //console.log("random index", newCard);
       if (!addedCards.includes(newCard)) {
         cards.push(champions[newCard]);
-        console.log("added Cards", cards);
+        //console.log("added Cards", cards);
         addedCards.push(newCard);
         i++;
       }
     }
     setCardsForGame(cards);
-    console.log("CARDS FOR GAME", cardsForGame);
+    //console.log("CARDS FOR GAME", cardsForGame);
   }
-
-  //getCardsBasedOnMode(hardModeCardNum);
-  //console.log("easy mode", getCardsBasedOnMode(easyModeCardNum));
-  //console.log("medium mode", getCardsBasedOnMode(medModeCardNum));
-  //console.log("hard mode", getCardsBasedOnMode(hardModeCardNum));
 
   const [cardsForGame, setCardsForGame] = useState([]);
 
@@ -51,6 +48,7 @@ function App() {
   }
 
   function handleCardSelect() {
+    setShuffleInProgress(true);
     let newCards = shuffle(cardsForGame);
     console.log(newCards);
     setCardsForGame([...newCards]);
@@ -65,6 +63,31 @@ function App() {
     }
     return array;
   }
+
+  function toggleFlip(flipState) {
+    setShuffleInProgress(flipState);
+  }
+
+  useEffect(() => {
+    //code
+    if (shuffleInProgress) {
+      console.log("changed");
+    }
+
+    //optional return
+  }, [shuffleInProgress]); //dependency
+
+  /*
+  useEffect(() => {
+    // Load your initial card data here (e.g., from an API)
+    // Replace the following with actual data fetching code
+    // Simulating loading data with a setTimeout
+    setTimeout(() => {
+      const initialCards = []; // Replace with actual data
+      setCardsForGame(initialCards);
+    }, 1000); // Adjust the delay as needed
+  }, []);
+  */
 
   return (
     <>
@@ -82,6 +105,8 @@ function App() {
           cardLink={getChampImg}
           champName={getChampName}
           onCardSelect={handleCardSelect}
+          shuffleInProgress={shuffleInProgress}
+          toggleFlip={toggleFlip}
         />
       </div>
     </>
@@ -89,10 +114,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<div>
-        <img src={`${getChampImg(21)}`} alt={`${getChampName(21)}`}></img>
-        <div>{getChampName(21)}</div>
-      </div>
-*/

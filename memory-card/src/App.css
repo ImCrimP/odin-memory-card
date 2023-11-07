@@ -5,8 +5,16 @@
   text-align: center;
 }
 
+.img {
+  width: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin: 5px;
+}
 img {
   width: 200px;
+  object-fit: cover;
+  border-radius: 20px;
 }
 /*
 img:hover {
@@ -18,7 +26,11 @@ img:hover {
   margin-bottom: 25px;
 }
 
-#imageContainer {
+p {
+  margin: 0;
+}
+
+#allImages {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -27,11 +39,45 @@ img:hover {
   justify-content: center;
 }
 
-.cardWithName {
-  border: 1px solid white;
-}
 .cardWithName:hover {
   transform: scale(1.06);
+  cursor: pointer;
+  /*transform: rotateY(90deg);*/
+}
+
+.cardContainer {
+  transition: 0.5s;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  perspective: 1000px;
+  height: 405.63px;
+
+  /*
+  &.flipped {
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+  }
+  */
+}
+.cardWithName {
+  border-radius: 25px;
+  border: 1px solid white;
+  overflow: hidden;
+  background-color: steelblue;
+
+  transform-style: preserve-3d;
+  transition: 0.5s;
+}
+
+.cardWithName.flipped {
+  transform: rotateY(180deg);
+}
+
+#backCardImg {
+  width: 200px;
+  height: 405.63px;
+  margin: none;
+  transform: rotateY(180deg);
 }
 
 .scores {
@@ -39,3 +85,47 @@ img:hover {
   justify-content: flex-end;
   gap: 25px;
 }
+
+.cardBack {
+  display: none;
+
+  &.flipped {
+    display: block;
+  }
+}
+
+/*
+
+.cardWithName.flipped .cardBack {
+  transform: rotateY(180deg);
+  visibility: visible;
+}
+
+.cardWithName.flipped .cardContainer {
+  transition: 250ms;
+  transform: rotateY(90deg);
+}
+
+.cardWithName.flipped {
+  transform-style: preserve-3d;
+  transition: 500ms;
+  transform: rotateY(180deg);
+}
+
+.cardWithName.unflipped .cardBack {
+  transform: rotateY(0deg);
+  visibility: visible;
+}
+
+.cardWithName.unflipped .cardContainer {
+  transition: 500ms;
+  transform: rotateY(0deg);
+}
+
+.cardWithName.unflipped {
+  transform-style: preserve-3d;
+  transition: 500ms;
+  transform: rotateY(0deg);
+}
+
+*/
