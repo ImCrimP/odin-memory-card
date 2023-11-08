@@ -31,7 +31,8 @@ background-image: linear-gradient(
   transition: transform 0.5s;
   border-radius: 25px; /* Apply border-radius to the entire card */
   border: 1px solid white;
-  background-color: rgb(3, 151, 171);
+  background-image: url("../public/lol-card-back.jpg");
+  background-size: 230px 430.63px;
   transform-style: preserve-3d;
 }
 
@@ -100,6 +101,7 @@ img {
 
 p {
   margin: 0;
+  font-size: large;
 }
 /*
 img:hover {
