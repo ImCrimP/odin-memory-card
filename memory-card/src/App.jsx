@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { set } from "lodash";
 import Cards from "./components/Cards";
 import Difficulty from "./components/Difficulty";
 import champs from "../champions";
@@ -22,6 +21,27 @@ function App() {
     //console.log("img", link);
     return link;
   }
+
+  /*
+ function getChampImg(championValue) {
+    const link = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champions[championValue].linkName}_0.jpg`;
+    //console.log("img", link);
+    return link;
+  }
+  */
+
+  /*
+  async function getChampImg(championValue) {
+    try {
+      const link =
+        await `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champions[championValue].linkName}_0.jpg`;
+      //console.log("img", link);
+      return link;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  */
 
   function getCardsBasedOnMode(mode) {
     let cards = [];
@@ -68,6 +88,10 @@ function App() {
     setShuffleInProgress(flipState);
   }
 
+  function flipSwitch() {
+    setShuffleInProgress(!shuffleInProgress);
+  }
+
   useEffect(() => {
     //code
     if (shuffleInProgress) {
@@ -107,6 +131,7 @@ function App() {
           onCardSelect={handleCardSelect}
           shuffleInProgress={shuffleInProgress}
           toggleFlip={toggleFlip}
+          flipSwitch={flipSwitch}
         />
       </div>
     </>

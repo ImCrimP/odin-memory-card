@@ -8,6 +8,7 @@ export default function Cards({
   onCardSelect,
   shuffleInProgress,
   toggleFlip,
+  flipSwitch,
 }) {
   console.log("CARDS", cards);
 
@@ -21,6 +22,7 @@ export default function Cards({
 
       // After a short delay (1 second in this example), unflip the cards and trigger shuffle
       const timeoutId = setTimeout(() => {
+        onCardSelect();
         toggleFlip(false);
         setFlipped(false);
         //onCardSelect(); // Call the shuffle function in App.jsx
@@ -30,29 +32,24 @@ export default function Cards({
         clearTimeout(timeoutId); // Clear the timeout if the component unmounts or if shuffle is complete
       };
     }
-  }, [shuffleInProgress]);
+  }, [shuffleInProgress, toggleFlip]);
 
   return (
     <div id="allImages">
       {cards.map((card, index) => (
         <div
-          className={`cardWithName ${flipped ? "flipped" : "unflipped"}`}
+          className={`cardWithName ${flipped ? "flipped" : ""}`}
           key={index}
-          onClick={onCardSelect}
+          onClick={() => flipSwitch()} // Pass the index as an argument to the onClick handler
         >
-          <div className={`cardContainer ${flipped ? "flipped" : "unflipped"}`}>
-            {flipped ? (
+          <div className={`card ${flipped ? "flipped" : ""}`}>
+            <div className="cardFront">
+              <img className="img" src={`${cardLink(card.value - 1)}`} alt="" />
+              <p>{champName(card.value - 1)}</p>
+            </div>
+            <div className="cardBack">
               <img id="backCardImg" src="../lol-card-back.jpg" alt="" />
-            ) : (
-              <>
-                <img
-                  className="img"
-                  src={`${cardLink(card.value - 1)}`}
-                  alt=""
-                />
-                <p>{champName(card.value - 1)}</p>
-              </>
-            )}
+            </div>
           </div>
         </div>
       ))}
