@@ -31,7 +31,6 @@ background-image: linear-gradient(
   transition: transform 0.5s;
   border-radius: 25px; /* Apply border-radius to the entire card */
   border: 1px solid white;
-  overflow: hidden;
   background-color: rgb(3, 151, 171);
   transform-style: preserve-3d;
 }
@@ -43,24 +42,15 @@ background-image: linear-gradient(
 
 .cardWithName.flipped .card {
   transform: rotateY(180deg);
-
-  .cardBack {
-    z-index: 1;
-  }
-  .cardFront {
-    z-index: 0;
-  }
 }
 
 .cardFront,
 .cardBack {
+  width: 100%;
+  height: 100%;
+
   position: absolute;
-  /*
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  */
-  align-items: center;
-  justify-content: center;
 }
 
 .cardFront {
@@ -75,6 +65,7 @@ background-image: linear-gradient(
 .cardBack {
   width: 100%;
   height: 100%;
+  border-radius: 25px;
   transform: rotateY(180deg);
   z-index: 0;
 }
@@ -85,6 +76,7 @@ background-image: linear-gradient(
   border-radius: 20px;
 }
 img {
+  border-radius: 25px;
   width: 100%;
   object-fit: cover;
 }
