@@ -13,6 +13,7 @@ export default function Cards({
   checkIfClicked,
   updateScore,
   isGameOver,
+  isGameWon,
 }) {
   //console.log("CARDS", cards);
 
@@ -54,8 +55,8 @@ export default function Cards({
       {cards.map((card, index) => (
         <div
           className={`${!isGameOver ? "cardWithName" : "hide"} ${
-            flipped ? "flipped" : ""
-          }`}
+            !isGameWon ? "cardWithName" : "hide"
+          }  ${flipped ? "flipped" : ""}`}
           key={index}
           onClick={() => checkIfClicked(card)} // Pass the index as an argument to the onClick handler
         >

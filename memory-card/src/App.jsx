@@ -20,6 +20,8 @@ function App() {
   const [cardsForGame, setCardsForGame] = useState([]);
   const [clickedArray, setClickedArray] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [modeDifficulty, setModeDifficulty] = useState(0);
 
   function getChampName(championValue) {
     //console.log("alt", champions[championValue].displayName);
@@ -38,7 +40,11 @@ function App() {
   }
 
   function getCardsBasedOnMode(mode) {
-    //setScore(0);
+    setModeDifficulty(mode);
+    setIsGameWon(false);
+    setIsGameOver(false);
+    console.log("mode difficulty", mode);
+    setScore(0);
     let cards = [];
     let addedCards = [];
     for (let i = 0; i < mode; ) {
@@ -51,6 +57,7 @@ function App() {
         i++;
       }
     }
+    setClickedArray([]);
     setCardsForGame(cards);
     setBeginningCards(cards);
     //console.log("CARDS FOR GAME", cardsForGame);
@@ -82,10 +89,30 @@ function App() {
   }
 
   function switchGameOverStatus() {
-    setIsGameOver(!isGameOver);
+    setIsGameOver(false);
+    setIsGameWon(false);
+    setCardsForGame([]);
     if (isGameOver) {
       setScore(0);
     }
+  }
+
+  function playAgain() {
+    setIsGameOver(false);
+    setIsGameWon(false);
+    console.log("mode difficulty after game over", modeDifficulty);
+    getCardsBasedOnMode(modeDifficulty);
+    if (isGameOver) {
+      setScore(0);
+    }
+  }
+
+  function gameWon() {
+    if (score + 1 == modeDifficulty) {
+      setIsGameWon(true);
+      console.log("GAME WON score:", score);
+    }
+    console.log("game not won score:", score);
   }
 
   useEffect(() => {
@@ -126,19 +153,25 @@ function App() {
       setScore(score + 1);
       console.log("score", score);
       console.log("high score", highScore);
+      gameWon();
     }
   }
 
   return (
     <>
       <div className="scores">
-        <Score score={score} isGameOver={isGameOver} />
-        <HighScore highScore={highScore} isGameOver={isGameOver} />
+        <Score score={score} isGameOver={isGameOver} isGameWon={isGameWon} />
+        <HighScore
+          highScore={highScore}
+          isGameOver={isGameOver}
+          isGameWon={isGameWon}
+        />
       </div>
       <div>
         <Difficulty
           onDifficultyChange={handleCardsForGame}
           isGameOver={isGameOver}
+          isGameWon={isGameWon}
         />
       </div>
 
@@ -147,6 +180,8 @@ function App() {
           isGameOver={isGameOver}
           switchGameOverStatus={switchGameOverStatus}
           score={score}
+          isGameWon={isGameWon}
+          playAgain={playAgain}
         />
         <Cards
           cards={cardsForGame}
@@ -159,6 +194,7 @@ function App() {
           checkIfClicked={checkIfClicked}
           updateScore={updateScore}
           isGameOver={isGameOver}
+          isGameWon={isGameWon}
         />
       </div>
     </>
