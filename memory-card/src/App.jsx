@@ -38,6 +38,7 @@ function App() {
   }
 
   function getCardsBasedOnMode(mode) {
+    //setScore(0);
     let cards = [];
     let addedCards = [];
     for (let i = 0; i < mode; ) {
@@ -80,6 +81,13 @@ function App() {
     setShuffleInProgress(!shuffleInProgress);
   }
 
+  function switchGameOverStatus() {
+    setIsGameOver(!isGameOver);
+    if (isGameOver) {
+      setScore(0);
+    }
+  }
+
   useEffect(() => {
     //code
     if (shuffleInProgress) {
@@ -107,10 +115,10 @@ function App() {
     if (clickedArray.includes(selected.value)) {
       console.log("ALREADY CLICKED");
       setClicked(true);
-      setScore(0);
       setIsGameOver(true);
       console.log("score", score);
       console.log("high score", highScore);
+      setCardsForGame([]);
     } else {
       setClickedArray((prevArray) => [...prevArray, selected.value]);
       updateScore();
@@ -124,15 +132,22 @@ function App() {
   return (
     <>
       <div className="scores">
-        <Score score={score} />
-        <HighScore highScore={highScore} />
+        <Score score={score} isGameOver={isGameOver} />
+        <HighScore highScore={highScore} isGameOver={isGameOver} />
       </div>
       <div>
-        <Difficulty onDifficultyChange={handleCardsForGame} />
+        <Difficulty
+          onDifficultyChange={handleCardsForGame}
+          isGameOver={isGameOver}
+        />
       </div>
 
       <div>
-        <GameOver isGameOver={isGameOver} />
+        <GameOver
+          isGameOver={isGameOver}
+          switchGameOverStatus={switchGameOverStatus}
+          score={score}
+        />
         <Cards
           cards={cardsForGame}
           cardLink={getChampImg}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../App.css";
 
-export default function Difficulty({ onDifficultyChange }) {
+export default function Difficulty({ onDifficultyChange, isGameOver }) {
   const easy = 5;
   const medium = 10;
   const hard = 15;
@@ -13,7 +13,7 @@ export default function Difficulty({ onDifficultyChange }) {
   }
 
   return (
-    <div id="btns">
+    <div id="btns" className={`${isGameOver ? "hide" : ""}`}>
       <button id="easy" value={5} onClick={toggleMode}>
         Easy
       </button>

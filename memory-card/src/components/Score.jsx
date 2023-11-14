@@ -1,6 +1,7 @@
-export default function Score({ score }) {
+export default function Score({ score, isGameOver }) {
+  //className={`${isGameOver ? "hide" : ""}`}
   return (
-    <div>
+    <div className={`${isGameOver ? "displayScore" : ""}`}>
       <p>Score: {score}</p>
     </div>
   );

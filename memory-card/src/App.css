@@ -115,7 +115,7 @@ p {
   position: fixed;
   top: 50%; /* Center vertically */
   left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Centering trick */
+  transform: translate(-50%, -25%); /* Centering trick */
   width: 600px; /* Adjust the width as needed */
   height: 500px; /* Adjust the height as needed */
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
@@ -130,4 +130,8 @@ p {
 }
 .hide {
   visibility: hidden;
+}
+
+.displayScore {
+  transform: translate(0, -200px);
 }

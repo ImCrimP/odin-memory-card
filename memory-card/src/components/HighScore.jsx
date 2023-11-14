@@ -1,6 +1,7 @@
-export default function HighScore({ highScore }) {
+export default function HighScore({ highScore, isGameOver }) {
+  //className={`${isGameOver ? "hide" : ""}`}
   return (
-    <div>
+    <div className={`${isGameOver ? "displayScore" : ""}`}>
       <p>High Score: {highScore} </p>
     </div>
   );
