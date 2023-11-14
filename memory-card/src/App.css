@@ -103,138 +103,31 @@ p {
   margin: 0;
   font-size: large;
 }
-/*
-img:hover {
-  transform: scale(1.05);
+
+.gameOver {
 }
 
-
-#btns {
-  margin-bottom: 25px;
-}
-
-p {
-  margin: 0;
-}
-
-
-
-.cardWithName:hover {
-  transform: scale(1.06);
-  cursor: pointer;
-  /*transform: rotateY(90deg);
-}
-
-.cardContainer {
-  /*
-  transition: 0.5s;
-  transform-style: preserve-3d;
-  transform: rotateY(0deg);
- 
-  perspective: 1000px;
-  height: 405.63px;
-
-  /*
-  &.flipped {
-    transition: transform 0.5s ease;
-    transform-style: preserve-3d;
-  }
-  
-}
-
-.card {
-  width: 200px;
-  height: 405.63px;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-}
-
-.cardWithName {
-  border-radius: 25px;
-  border: 1px solid white;
-  overflow: hidden;
-  background-image: linear-gradient(
-    rgb(3, 151, 171),
-    rgb(10, 50, 60),
-    rgb(200, 155, 60),
-    rgb(10, 50, 60),
-    rgb(10, 50, 60) /*rgb(3, 151, 171)
-  );
-
-  transform-style: preserve-3d;
-  perspective: 500px;
-  transition: 0.5s;
-}
-
-.card.unflipped {
-  transform: rotateY(0deg);
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-#backCardImg {
-  width: 200px;
-  height: 405.63px;
-  margin: none;
-  transform: rotateY(180deg);
-}
-
-.scores {
-  display: flex;
-  justify-content: flex-end;
-  gap: 25px;
-}
-
-.cardFront {
+.gameOverContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: rotateY(0deg);
+  position: fixed;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Centering trick */
+  width: 600px; /* Adjust the width as needed */
+  height: 500px; /* Adjust the height as needed */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+  z-index: 2; /* Higher z-index to appear on top of other elements */
+  /* Initially hidden */
 }
 
-.cardBack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transform: rotateY(180deg);
+.displayGameOver {
+  /* Additional styling for the Game Over text */
+  font-size: 48px;
+  color: white;
 }
-
-/*
-
-.cardWithName.flipped .cardBack {
-  transform: rotateY(180deg);
-  visibility: visible;
+.hide {
+  visibility: hidden;
 }
-
-.cardWithName.flipped .cardContainer {
-  transition: 250ms;
-  transform: rotateY(90deg);
-}
-
-.cardWithName.flipped {
-  transform-style: preserve-3d;
-  transition: 500ms;
-  transform: rotateY(180deg);
-}
-
-.cardWithName.unflipped .cardBack {
-  transform: rotateY(0deg);
-  visibility: visible;
-}
-
-.cardWithName.unflipped .cardContainer {
-  transition: 500ms;
-  transform: rotateY(0deg);
-}
-
-.cardWithName.unflipped {
-  transform-style: preserve-3d;
-  transition: 500ms;
-  transform: rotateY(0deg);
-}
-
-*/

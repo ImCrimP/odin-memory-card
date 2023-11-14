@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../App.css";
+import { update } from "lodash";
 
 export default function Cards({
   cards,
@@ -9,10 +10,14 @@ export default function Cards({
   shuffleInProgress,
   toggleFlip,
   flipSwitch,
+  checkIfClicked,
+  updateScore,
+  isGameOver,
 }) {
-  console.log("CARDS", cards);
+  //console.log("CARDS", cards);
 
   const [flipped, setFlipped] = useState(false);
+  const [clickedArray, setClickedArray] = useState([]);
 
   useEffect(() => {
     if (shuffleInProgress) {
@@ -25,6 +30,7 @@ export default function Cards({
         onCardSelect();
         toggleFlip(false);
         setFlipped(false);
+        setClickedArray([]);
         //onCardSelect(); // Call the shuffle function in App.jsx
       }, 1000);
 
@@ -32,17 +38,31 @@ export default function Cards({
         clearTimeout(timeoutId); // Clear the timeout if the component unmounts or if shuffle is complete
       };
     }
-  }, [shuffleInProgress, toggleFlip]);
+  }, [shuffleInProgress, toggleFlip, onCardSelect]);
+
+  const handleCardClick = (selected) => {
+    if (clickedArray.includes(selected.value)) {
+      console.log("ALREADY CLICKED");
+    } else {
+      setClickedArray((prevArray) => [...prevArray, selected.value]);
+      updateScore();
+    }
+  };
 
   return (
     <div id="allImages">
       {cards.map((card, index) => (
         <div
-          className={`cardWithName ${flipped ? "flipped" : ""}`}
+          className={`${!isGameOver ? "cardWithName" : "hide"} ${
+            flipped ? "flipped" : ""
+          }`}
           key={index}
-          onClick={() => flipSwitch()} // Pass the index as an argument to the onClick handler
+          onClick={() => checkIfClicked(card)} // Pass the index as an argument to the onClick handler
         >
-          <div className={`card ${flipped ? "flipped" : ""}`}>
+          <div
+            className={`card ${flipped ? "flipped" : ""}`}
+            onClick={() => handleCardClick(card)}
+          >
             <div className="cardFront">
               <img className="img" src={`${cardLink(card.value - 1)}`} alt="" />
               <p>{champName(card.value - 1)}</p>
@@ -56,21 +76,3 @@ export default function Cards({
     </div>
   );
 }
-
-/*
-export default function Cards({ cards, cardLink, champName }) {
-  console.log("CARDS", cards);
-  return (
-    cards.length > 0 && (
-      <div id="imageContainer">
-        {cards.map((card, index) => (
-   
-          <img key={index} src={`${cardLink(card.value - 1)}`} alt="" />
-          <p key={`${index}Name`} >{champName(card.value - 1)}</p>
-          
-        ))}
-      </div>
-    )
-  );
-}
-*/

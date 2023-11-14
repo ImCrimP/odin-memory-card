@@ -1,8 +1,7 @@
-export default function Score() {
-
-    return(
-        <div>
-            <p>Score: </p>
-        </div>
-    )
+export default function Score({ score }) {
+  return (
+    <div>
+      <p>Score: {score}</p>
+    </div>
+  );
 }

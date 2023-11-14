@@ -1,7 +1,7 @@
-export default function HighScore() {
+export default function HighScore({ highScore }) {
   return (
     <div>
-      <p>High Score: </p>
+      <p>High Score: {highScore} </p>
     </div>
   );
 }

@@ -5,11 +5,21 @@ import Difficulty from "./components/Difficulty";
 import champs from "../champions";
 import HighScore from "./components/HighScore";
 import Score from "./components/Score";
+import GameOver from "./components/GameOver";
+import { flip } from "lodash";
 
 function App() {
   const champions = champs();
 
   const [shuffleInProgress, setShuffleInProgress] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [clicked, setClicked] = useState(false);
+  const [beginningCards, setBeginningCards] = useState([]);
+  const [cardsForGame, setCardsForGame] = useState([]);
+  const [clickedArray, setClickedArray] = useState([]);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   function getChampName(championValue) {
     //console.log("alt", champions[championValue].displayName);
@@ -22,26 +32,10 @@ function App() {
     return link;
   }
 
-  /*
- function getChampImg(championValue) {
-    const link = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champions[championValue].linkName}_0.jpg`;
-    //console.log("img", link);
-    return link;
+  function handleCardsForGame(cards) {
+    getCardsBasedOnMode(cards);
+    //console.log("CARDS FOR GAME handle card for game func", cardsForGame);
   }
-  */
-
-  /*
-  async function getChampImg(championValue) {
-    try {
-      const link =
-        await `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champions[championValue].linkName}_0.jpg`;
-      //console.log("img", link);
-      return link;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  */
 
   function getCardsBasedOnMode(mode) {
     let cards = [];
@@ -57,20 +51,14 @@ function App() {
       }
     }
     setCardsForGame(cards);
+    setBeginningCards(cards);
     //console.log("CARDS FOR GAME", cardsForGame);
-  }
-
-  const [cardsForGame, setCardsForGame] = useState([]);
-
-  function handleCardsForGame(cards) {
-    getCardsBasedOnMode(cards);
-    console.log(cardsForGame);
   }
 
   function handleCardSelect() {
     setShuffleInProgress(true);
     let newCards = shuffle(cardsForGame);
-    console.log(newCards);
+    //console.log(newCards);
     setCardsForGame([...newCards]);
   }
 
@@ -101,29 +89,50 @@ function App() {
     //optional return
   }, [shuffleInProgress]); //dependency
 
-  /*
-  useEffect(() => {
-    // Load your initial card data here (e.g., from an API)
-    // Replace the following with actual data fetching code
-    // Simulating loading data with a setTimeout
-    setTimeout(() => {
-      const initialCards = []; // Replace with actual data
-      setCardsForGame(initialCards);
-    }, 1000); // Adjust the delay as needed
-  }, []);
-  */
+  function updateScore() {
+    if (!clicked) {
+      setScore(score + 1);
+      console.log("update score", score);
+    }
+  }
+
+  function updateHighScore() {
+    if (score >= highScore) {
+      setHighScore(score + 1);
+    }
+  }
+
+  function checkIfClicked(selected) {
+    flipSwitch();
+    if (clickedArray.includes(selected.value)) {
+      console.log("ALREADY CLICKED");
+      setClicked(true);
+      setScore(0);
+      setIsGameOver(true);
+      console.log("score", score);
+      console.log("high score", highScore);
+    } else {
+      setClickedArray((prevArray) => [...prevArray, selected.value]);
+      updateScore();
+      updateHighScore();
+      setScore(score + 1);
+      console.log("score", score);
+      console.log("high score", highScore);
+    }
+  }
 
   return (
     <>
       <div className="scores">
-        <Score />
-        <HighScore />
+        <Score score={score} />
+        <HighScore highScore={highScore} />
       </div>
       <div>
         <Difficulty onDifficultyChange={handleCardsForGame} />
       </div>
 
       <div>
+        <GameOver isGameOver={isGameOver} />
         <Cards
           cards={cardsForGame}
           cardLink={getChampImg}
@@ -132,6 +141,9 @@ function App() {
           shuffleInProgress={shuffleInProgress}
           toggleFlip={toggleFlip}
           flipSwitch={flipSwitch}
+          checkIfClicked={checkIfClicked}
+          updateScore={updateScore}
+          isGameOver={isGameOver}
         />
       </div>
     </>
