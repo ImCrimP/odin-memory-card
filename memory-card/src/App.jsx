@@ -148,6 +148,7 @@ function App() {
       setCardsForGame([]);
     } else {
       setClickedArray((prevArray) => [...prevArray, selected.value]);
+      setClicked(false);
       updateScore();
       updateHighScore();
       setScore(score + 1);

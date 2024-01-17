@@ -12,7 +12,7 @@ export default function GameOver({
     <div className={` ${isGameOver || isGameWon ? "gameOverContainer" : ""}`}>
       <div className={` ${isGameOver ? "displayGameOver" : "hide"}`}>
         Game Over
-        <h5>Score: {score}</h5>
+        <h5>Score: {score - 1}</h5>
       </div>
       <div className={` ${isGameWon ? "displayGameOver" : "hide"}`}>
         You Won
